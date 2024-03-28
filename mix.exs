@@ -1,13 +1,19 @@
 defmodule Zenrows.MixProject do
   use Mix.Project
 
+  @source_url "https://github.com/guess/zenrows"
+  @version "0.1.0"
+
   def project do
     [
       app: :zenrows,
-      version: "0.1.0",
+      version: @version,
       elixir: "~> 1.16",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      description: description(),
+      package: package(),
+      docs: docs()
     ]
   end
 
@@ -22,7 +28,33 @@ defmodule Zenrows.MixProject do
       {:tesla, "~> 1.8.0"},
       {:hackney, "~> 1.20"},
       {:jason, ">= 1.0.0"},
-      {:nimble_options, "~> 1.1"}
+      {:nimble_options, "~> 1.1"},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
+    ]
+  end
+
+  defp description() do
+    """
+    An Elixir client for the ZenRows API.
+    """
+  end
+
+  defp package do
+    [
+      maintainers: ["Steve Strates"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => @source_url}
+    ]
+  end
+
+  defp docs do
+    [
+      main: "readme",
+      name: "ZenRows",
+      source_ref: "v#{@version}",
+      canonical: "http://hexdocs.pm/zenrows",
+      source_url: @source_url,
+      extras: ["README.md", "LICENSE"]
     ]
   end
 end

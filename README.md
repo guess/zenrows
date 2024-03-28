@@ -2,6 +2,8 @@
 
 ZenRows is an Elixir client library for interacting with the [ZenRows API](https://docs.zenrows.com/api-reference). It provides a simple and convenient way to send HTTP requests to the ZenRows API, allowing you to scrape web pages and extract data easily.
 
+View the [documentation on hexdocs](https://hexdocs.pm/zenrows/readme.html).
+
 ## Installation
 
 Add zenrows to your list of dependencies in mix.exs:
