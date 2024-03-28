@@ -10,7 +10,6 @@ defmodule ZenRows.Config do
   ## Parameters
 
   - `js_render` (optional): Render the JavaScript on the page with a headless browser. Default is `false`. Enabling this option consumes 5 credits per request.
-  - `custom_headers` (optional): Enable custom headers to be passed to the request. Default is `false`.
   - `premium_proxy` (optional): Use premium proxies to make the request harder to detect. Default is `false`. Enabling this option consumes 10-25 credits per request.
   - `proxy_country` (optional): Geolocation of the IP used to make the request. Only applicable when using premium proxies. Example: "us".
   - `session_id` (optional): Send a session ID number to use the same IP for each API request for up to 10 minutes.
@@ -45,7 +44,6 @@ defmodule ZenRows.Config do
   """
   @type t :: %__MODULE__{
           js_render: boolean() | nil,
-          custom_headers: boolean() | nil,
           premium_proxy: boolean() | nil,
           proxy_country: binary() | nil,
           session_id: integer() | nil,
@@ -65,7 +63,6 @@ defmodule ZenRows.Config do
 
   defstruct [
     :js_render,
-    :custom_headers,
     :premium_proxy,
     :proxy_country,
     :session_id,
