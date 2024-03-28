@@ -29,7 +29,8 @@ defmodule Zenrows.MixProject do
       {:hackney, "~> 1.20"},
       {:jason, ">= 1.0.0"},
       {:nimble_options, "~> 1.1"},
-      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
     ]
   end
 
