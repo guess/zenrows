@@ -64,7 +64,7 @@ defmodule ZenRows do
 
   Returns a `Tesla.Env` struct representing the response.
   """
-  @spec get(String.t(), options()) :: Tesla.Env.t()
+  @spec get(String.t(), options()) :: Tesla.Env.result()
   def get(url, opts \\ []) do
     opts = NimbleOptions.validate!(opts, schema())
     Request.get(url, opts)
@@ -75,7 +75,7 @@ defmodule ZenRows do
 
   Returns a `Tesla.Env` struct representing the response.
   """
-  @spec post(String.t(), options()) :: Tesla.Env.t()
+  @spec post(String.t(), options()) :: Tesla.Env.result()
   def post(url, opts \\ []) do
     opts = NimbleOptions.validate!(opts, schema())
     Request.post(url, opts)

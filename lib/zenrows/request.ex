@@ -10,10 +10,18 @@ defmodule ZenRows.Request do
     Tesla.Middleware.Logger
   ]
 
+  @doc """
+  Sends a GET request to the specified URL with the given options.
+  """
+  @spec get(String.t(), ZenRows.options()) :: Tesla.Env.result()
   def get(url, opts \\ []) do
     Tesla.get(client(opts), "/", params(url, opts))
   end
 
+  @doc """
+  Sends a POST request to the specified URL with the given options.
+  """
+  @spec post(String.t(), ZenRows.options()) :: Tesla.Env.result()
   def post(url, opts \\ []) do
     Tesla.post(client(opts), "/", opts[:data], params(url, opts))
   end
