@@ -2,7 +2,7 @@
 
 ZenRows is an Elixir client library for interacting with the [ZenRows API](https://docs.zenrows.com/api-reference). It provides a simple and convenient way to send HTTP requests to the ZenRows API, allowing you to scrape web pages and extract data easily.
 
-View the [documentation on hexdocs](https://hexdocs.pm/zenrows/readme.html).
+View the [documentation](https://hexdocs.pm/zenrows/readme.html).
 
 ## Installation
 
@@ -61,7 +61,7 @@ ZenRows.post("https://example.com", data: %{key: "value"}, headers: %{"Authoriza
 - `:delay` (optional): The initial delay in milliseconds between retries. Overrides the application environment configuration.
 - `:max_delay` (optional): The maximum delay in milliseconds between retries. Overrides the application environment configuration.
 
-For more information on the available configuration options, refer to the `ZenRows.Config` documentation.
+For more information on the available configuration options, refer to the `ZenRows.Config` [documentation](https://hexdocs.pm/zenrows/ZenRows.Config.html).
 
 ## Contributing
 
