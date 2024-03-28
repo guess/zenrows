@@ -84,7 +84,7 @@ defmodule ZenRows do
   defp schema do
     [
       headers: [
-        type: :map,
+        type: {:map, :string, :string},
         default: %{}
       ],
       config: [
@@ -92,7 +92,7 @@ defmodule ZenRows do
         default: %Config{}
       ],
       data: [
-        type: :map,
+        type: {:map, {:or, [:string, :atom]}, :any},
         default: %{}
       ],
       retries: [
