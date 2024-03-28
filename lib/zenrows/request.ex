@@ -57,11 +57,17 @@ defmodule ZenRows.Request do
   defp client(opts) do
     middleware =
       [
-        {Tesla.Middleware.Retry,
-         delay: opts[:delay],
-         max_retries: opts[:retries],
-         max_delay: opts[:max_delay],
-         should_retry: &should_retry/1}
+        {
+          Tesla.Middleware.Retry,
+          delay: opts[:delay],
+          max_retries: opts[:retries],
+          max_delay: opts[:max_delay],
+          should_retry: &should_retry/1
+        },
+        {
+          Tesla.Middleware.Timeout,
+          timeout: opts[:timeout]
+        }
       ] ++ @middleware
 
     Tesla.client(middleware, opts[:adapter] || default_adapter())

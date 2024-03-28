@@ -28,7 +28,8 @@ config :zenrows,
   adapter: Tesla.Adapter.Hackney,
   retries: 3,
   delay: 1000,
-  max_delay: 10_000
+  max_delay: 10_000,
+  timeout: 30_000
 ```
 
 - `api_key` (required): Your ZenRows API key. Get your free API key from the ZenRows dashboard.
@@ -36,6 +37,7 @@ config :zenrows,
 - `retries` (optional): The number of times to retry failed requests. Default is 0.
 - `delay` (optional): The initial delay in milliseconds between retries. Default is 500.
 - `max_delay` (optional): The maximum delay in milliseconds between retries. Default is 4000.
+- `timeout` (optional): The request timeout in milliseconds. Default is 30000.
 
 ## Usage
 
@@ -60,6 +62,7 @@ ZenRows.post("https://example.com", data: %{key: "value"}, headers: %{"Authoriza
 - `:retries` (optional): The number of times to retry failed requests. Overrides the application environment configuration.
 - `:delay` (optional): The initial delay in milliseconds between retries. Overrides the application environment configuration.
 - `:max_delay` (optional): The maximum delay in milliseconds between retries. Overrides the application environment configuration.
+- `:timeout` (optional): The request timeout in milliseconds. Overrides the application environment configuration.
 
 For more information on the available configuration options, refer to the `ZenRows.Config` [documentation](https://hexdocs.pm/zenrows/ZenRows.Config.html).
 

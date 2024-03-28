@@ -106,6 +106,10 @@ defmodule ZenRows do
       max_delay: [
         type: :non_neg_integer,
         default: Application.get_env(:zenrows, :max_delay, 4_000)
+      ],
+      timeout: [
+        type: :non_neg_integer,
+        default: Application.get_env(:zenrows, :timeout, 30_000)
       ]
     ]
   end
