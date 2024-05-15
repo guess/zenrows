@@ -5,6 +5,7 @@ defmodule ZenRows.Request do
 
   @middleware [
     {Tesla.Middleware.BaseUrl, @api_url},
+    {Tesla.Middleware.Timeout, timeout: 30_000},
     {Tesla.Middleware.Headers, [{"user-agent", "zenrows/#{@version} elixir"}]},
     Tesla.Middleware.JSON,
     Tesla.Middleware.Logger
@@ -36,7 +37,7 @@ defmodule ZenRows.Request do
       |> Map.merge(%{url: url, apikey: api_key()})
       |> maybe_put_custom_headers(headers)
 
-    [query: query, headers: headers]
+    [query: query, headers: headers, opts: [adapter: [recv_timeout: 30_000]]]
   end
 
   defp drop_keys(config) do
