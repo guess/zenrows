@@ -72,8 +72,6 @@ defmodule ZenRows.Request do
       ] ++ @middleware
 
     adapter = opts[:adapter] || default_adapter()
-    IO.inspect(adapter, label: "adapter in client")
-
     Tesla.client(middleware, adapter)
   end
 
