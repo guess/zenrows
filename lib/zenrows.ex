@@ -110,6 +110,10 @@ defmodule ZenRows do
       timeout: [
         type: :non_neg_integer,
         default: Application.get_env(:zenrows, :timeout, 30_000)
+      ],
+      adapter: [
+        type: :any,
+        default: Application.get_env(:zenrows, :adapter, Tesla.Adapter.Hackney)
       ]
     ]
   end

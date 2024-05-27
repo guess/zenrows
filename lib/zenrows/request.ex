@@ -37,7 +37,7 @@ defmodule ZenRows.Request do
       |> Map.merge(%{url: url, apikey: api_key()})
       |> maybe_put_custom_headers(headers)
 
-    [query: query, headers: headers, opts: [adapter: [recv_timeout: 30_000]]]
+    [query: query, headers: headers, opts: [adapter: [recv_timeout: opts[:timeout]]]]
   end
 
   defp drop_keys(config) do
@@ -71,7 +71,10 @@ defmodule ZenRows.Request do
         }
       ] ++ @middleware
 
-    Tesla.client(middleware, opts[:adapter] || default_adapter())
+    adapter = opts[:adapter] || default_adapter()
+    IO.inspect(adapter, label: "adapter in client")
+
+    Tesla.client(middleware, adapter)
   end
 
   defp should_retry({:ok, %{status: status}}) when status == 429, do: true
