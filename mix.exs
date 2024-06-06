@@ -2,7 +2,7 @@ defmodule Zenrows.MixProject do
   use Mix.Project
 
   @source_url "https://github.com/guess/zenrows"
-  @version "0.1.4"
+  @version "0.2.0"
 
   def project do
     [
