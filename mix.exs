@@ -1,4 +1,4 @@
-defmodule Zenrows.MixProject do
+defmodule ZenRows.MixProject do
   use Mix.Project
 
   @source_url "https://github.com/guess/zenrows"
