@@ -25,12 +25,12 @@ defmodule Zenrows.MixProject do
 
   defp deps do
     [
-      {:tesla, "~> 1.8.0"},
-      {:hackney, "~> 1.20"},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:finch, "~> 0.13"},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
       {:jason, ">= 1.0.0"},
       {:nimble_options, "~> 1.1"},
-      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
-      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
+      {:req, "~> 0.5.0"}
     ]
   end
 

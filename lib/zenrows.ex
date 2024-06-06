@@ -10,19 +10,13 @@ defmodule ZenRows do
   The `ZenRows` module can be configured using the application environment. The following options are available:
 
   - `:api_key` (required): The API key for authentication with the ZenRows API.
-  - `:adapter` (optional): The HTTP adapter module to use for requests. Default is `Tesla.Adapter.Hackney`.
-  - `:retries` (optional): The number of times to retry failed requests. Default is 0.
-  - `:delay` (optional): The initial delay in milliseconds between retries. Default is 500.
-  - `:max_delay` (optional): The maximum delay in milliseconds between retries. Default is 4000.
+  - `:retries` (optional): The number of times to retry failed requests. Default is 3.
 
   Example configuration:
 
       config :zenrows,
         api_key: "YOUR_API_KEY",
-        adapter: Tesla.Adapter.Mint,
-        retries: 3,
-        delay: 1000,
-        max_delay: 10_000
+        retries: 3
 
   ## Usage
 
@@ -41,10 +35,7 @@ defmodule ZenRows do
   - `:headers` (optional): A map of additional headers to include in the request. Default is an empty map.
   - `:config` (optional): A `ZenRows.Config` struct specifying the configuration options for the request. Default is an empty struct.
   - `:data` (optional): A map of data to be sent as the request body in a POST request. Default is an empty map.
-  - `:adapter` (optional): The HTTP adapter module to use for the request. Default is `Tesla.Adapter.Hackney`.
   - `:retries` (optional): The number of times to retry failed requests. Overrides the application environment configuration.
-  - `:delay` (optional): The initial delay in milliseconds between retries. Overrides the application environment configuration.
-  - `:max_delay` (optional): The maximum delay in milliseconds between retries. Overrides the application environment configuration.
   """
 
   alias ZenRows.{Config, Request}
@@ -54,10 +45,7 @@ defmodule ZenRows do
           {:headers, map()}
           | {:config, Config.t()}
           | {:data, map()}
-          | {:adapter, module()}
           | {:retries, non_neg_integer()}
-          | {:delay, non_neg_integer()}
-          | {:max_delay, non_neg_integer()}
 
   @doc """
   Sends a GET request to the specified URL with the given options.
@@ -99,21 +87,9 @@ defmodule ZenRows do
         type: :non_neg_integer,
         default: Application.get_env(:zenrows, :retries, 0)
       ],
-      delay: [
-        type: :non_neg_integer,
-        default: Application.get_env(:zenrows, :delay, 500)
-      ],
-      max_delay: [
-        type: :non_neg_integer,
-        default: Application.get_env(:zenrows, :max_delay, 4_000)
-      ],
       timeout: [
         type: :non_neg_integer,
         default: Application.get_env(:zenrows, :timeout, 30_000)
-      ],
-      adapter: [
-        type: :any,
-        default: Application.get_env(:zenrows, :adapter, Tesla.Adapter.Hackney)
       ]
     ]
   end
