@@ -11,12 +11,14 @@ defmodule ZenRows do
 
   - `:api_key` (required): The API key for authentication with the ZenRows API.
   - `:retries` (optional): The number of times to retry failed requests. Default is 3.
+  - `:timeout` (optional): The request timeout in milliseconds. Default is 30000.
 
   Example configuration:
 
       config :zenrows,
         api_key: "YOUR_API_KEY",
-        retries: 3
+        retries: 3,
+        timeout: 30000
 
   ## Usage
 
@@ -36,6 +38,7 @@ defmodule ZenRows do
   - `:config` (optional): A `ZenRows.Config` struct specifying the configuration options for the request. Default is an empty struct.
   - `:data` (optional): A map of data to be sent as the request body in a POST request. Default is an empty map.
   - `:retries` (optional): The number of times to retry failed requests. Overrides the application environment configuration.
+  - `:timeout` (optional): The request timeout in milliseconds. Default is 30000.
   """
 
   alias ZenRows.{Config, Request}
@@ -46,6 +49,7 @@ defmodule ZenRows do
           | {:config, Config.t()}
           | {:data, map()}
           | {:retries, non_neg_integer()}
+          | {:timeout, non_neg_integer()}
 
   @doc """
   Sends a GET request to the specified URL with the given options.
