@@ -11,7 +11,7 @@ Add zenrows to your list of dependencies in mix.exs:
 ```elixir
 def deps do
   [
-    {:zenrows, "~> 0.1"}
+    {:zenrows, "~> 0.2"}
   ]
 end
 ```
