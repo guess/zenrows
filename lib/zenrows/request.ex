@@ -1,5 +1,7 @@
 defmodule ZenRows.Request do
   @moduledoc false
+  alias ZenRows.Config
+
   @api_url "https://api.zenrows.com/v1"
   @version Application.spec(:zenrows, :vsn)
 
@@ -8,7 +10,13 @@ defmodule ZenRows.Request do
   """
   @spec get(String.t(), ZenRows.options()) :: {:ok, Req.Response.t()} | {:error, Exception.t()}
   def get(url, opts \\ []) do
-    Req.get(@api_url, params(url, opts))
+    case validate_opts(opts) do
+      {:ok, opts} ->
+        Req.get(@api_url, params(url, opts))
+
+      {:error, error} ->
+        {:error, error}
+    end
   end
 
   @doc """
@@ -16,11 +24,17 @@ defmodule ZenRows.Request do
   """
   @spec post(String.t(), ZenRows.options()) :: {:ok, Req.Response.t()} | {:error, Exception.t()}
   def post(url, opts \\ []) do
-    Req.post(@api_url, params(url, opts))
+    case validate_opts(opts) do
+      {:ok, opts} ->
+        Req.post(@api_url, params(url, opts))
+
+      {:error, error} ->
+        {:error, error}
+    end
   end
 
   defp params(url, opts) do
-    headers = Enum.into(opts[:headers], [])
+    headers = Keyword.get(opts, :headers, [])
 
     query =
       opts[:config]
@@ -34,8 +48,7 @@ defmodule ZenRows.Request do
       headers: [{"user-agent", "zenrows/#{@version} elixir"} | headers],
       receive_timeout: opts[:timeout],
       retry: :transient,
-      max_retries: opts[:retries],
-      receive_timeout: opts[:timeout]
+      max_retries: opts[:retries]
     ]
     |> maybe_put_data(opts)
   end
@@ -45,6 +58,17 @@ defmodule ZenRows.Request do
     |> Map.from_struct()
     |> Enum.filter(fn {_, v} -> is_nil(v) end)
     |> Enum.map(fn {k, _} -> k end)
+  end
+
+  @spec validate_opts(ZenRows.options()) :: {:ok, ZenRows.options()} | {:error, String.t()}
+  defp validate_opts(opts) do
+    config = Keyword.get(opts, :config, %Config{})
+
+    if Config.requires_javascript?(config) && !config.js_render do
+      {:error, "Requires js"}
+    else
+      {:ok, opts}
+    end
   end
 
   @spec maybe_put_custom_headers(map(), list()) :: map()

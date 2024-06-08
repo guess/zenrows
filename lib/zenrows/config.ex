@@ -10,6 +10,7 @@ defmodule ZenRows.Config do
   ## Parameters
 
   - `js_render` (optional): Render the JavaScript on the page with a headless browser. Default is `false`. Enabling this option consumes 5 credits per request.
+  - `js_instructions` (optional): Use Javascript to interact with the pages you want to scrape.
   - `premium_proxy` (optional): Use premium proxies to make the request harder to detect. Default is `false`. Enabling this option consumes 10-25 credits per request.
   - `proxy_country` (optional): Geolocation of the IP used to make the request. Only applicable when using premium proxies. Example: "us".
   - `session_id` (optional): Send a session ID number to use the same IP for each API request for up to 10 minutes.
@@ -44,6 +45,7 @@ defmodule ZenRows.Config do
   """
   @type t :: %__MODULE__{
           js_render: boolean() | nil,
+          js_instructions: binary() | nil,
           premium_proxy: boolean() | nil,
           proxy_country: binary() | nil,
           session_id: integer() | nil,
@@ -63,6 +65,7 @@ defmodule ZenRows.Config do
 
   defstruct [
     :js_render,
+    :js_instructions,
     :premium_proxy,
     :proxy_country,
     :session_id,
@@ -79,4 +82,19 @@ defmodule ZenRows.Config do
     :return_screenshot,
     :resolve_captcha
   ]
+
+  @doc """
+  Returns true if config requires javascript (js_render=true)
+  """
+  @spec requires_javascript?(t()) :: boolean()
+  def requires_javascript?(config) do
+    config.js_render ||
+      config.js_instructions ||
+      config.wait_for ||
+      config.wait ||
+      config.block_resources ||
+      config.json_response ||
+      config.window_height ||
+      config.window_width
+  end
 end
